@@ -7,8 +7,11 @@ const LINKS = [
   ['timeline', 'The day'],
   ['details', 'The details'],
   ['story', 'Our story'],
+  ['entourage', 'Entourage'],
   ['moments', 'Our moments'],
   ['dress', 'Attire'],
+  ['gifts', 'Gifts'],
+  ['questions', 'Questions'],
   ['rsvp', 'RSVP'],
 ]
 

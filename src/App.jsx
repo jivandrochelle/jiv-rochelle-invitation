@@ -8,10 +8,13 @@ import TimelineArtwork from './components/TimelineArtwork.jsx'
 import { setupScrollReveals } from './scrollReveal.js'
 import WeddingNavigation from './components/WeddingNavigation.jsx'
 import WeddingStory from './components/WeddingStory.jsx'
+import WeddingEntourage from './components/WeddingEntourage.jsx'
 import GuestPalette from './components/GuestPalette.jsx'
+import WeddingGifts from './components/WeddingGifts.jsx'
 import WeddingVenues from './components/WeddingVenues.jsx'
 import WeddingGallery from './components/WeddingGallery.jsx'
 import WeddingRsvp from './components/WeddingRsvp.jsx'
+import WeddingQuestions from './components/WeddingQuestions.jsx'
 import WeddingMusic from './components/WeddingMusic.jsx'
 import Ampersand from './components/Ampersand.jsx'
 import Flourish from './components/Flourish.jsx'
@@ -164,10 +167,13 @@ export default function App() {
         </section>
         <Countdown />
         <Timeline />
-        <WeddingVenues><Flourish /></WeddingVenues>
+        <WeddingVenues enabled={stage === 'done'}><Flourish /></WeddingVenues>
         <WeddingStory enabled={stage === 'done'}><Flourish className="story-ornament" /></WeddingStory>
+        <WeddingEntourage />
         <WeddingGallery />
         <GuestPalette><Flourish /></GuestPalette>
+        <WeddingGifts />
+        <WeddingQuestions />
         <WeddingRsvp />
       </main>
       <footer className="closing-section section"><p className="eyebrow">We can’t wait to celebrate with you</p><Monogram /><p className="closing-names">Jiv <Ampersand /> Rochelle</p><p className="closing-date">February 7, 2027 · Cebu</p><button className="replay-button" onClick={replayOpening}><span aria-hidden="true">↺</span> Open the magic again</button></footer>

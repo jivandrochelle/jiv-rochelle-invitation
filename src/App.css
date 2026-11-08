@@ -13,7 +13,9 @@ body { background: var(--ivory); }
 .invitation-shell.has-started { animation: invitation-page-appear var(--page-reveal-duration) ease-in-out var(--page-reveal-delay) both; }
 @keyframes invitation-page-appear { from { opacity: 0; } to { opacity: 1; } }
 .site-header { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 0 clamp(28px, 5vw, 90px); background: var(--ivory); border-bottom: 1px dashed #887b6240; }
-.site-header nav { display: flex; gap: clamp(14px, 2.2vw, 24px); }
+.site-header { gap: 18px; }
+.header-monogram, .header-date { flex-shrink: 0; }
+.site-header nav { display: flex; gap: clamp(14px, 2.2vw, 24px); min-width: 0; overflow-x: auto; white-space: nowrap; }
 .site-header nav a, .header-date { font: 10px var(--sans); letter-spacing: .09em; }
 .site-header nav a { padding: 20px 0; position: relative; }
 .site-header nav a::after { content: ''; position: absolute; height: 1px; left: 0; right: 100%; bottom: 14px; background: var(--gold); transition: right .25s; }

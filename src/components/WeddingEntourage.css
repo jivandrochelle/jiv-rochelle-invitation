@@ -1,0 +1,28 @@
+.entourage-section { --section-tone: #e9e9df; scroll-margin-top: 64px; }
+.entourage-section > .section-intro { max-width: 440px; margin-inline: auto; }
+.entourage-content { max-width: 960px; margin: 48px auto 0; }
+.entourage-block { padding: 36px 0; border-top: 1px dashed #92967c66; }
+.entourage-block > h3:not(.sr-only) { font-size: clamp(28px, 4vw, 35px); line-height: 1.2; margin-bottom: 30px; }
+.entourage-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 48px; }
+.entourage-trio { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
+.entourage-group h4 { margin: 0 0 18px; font: 10px/1.8 var(--sans); letter-spacing: .13em; text-transform: uppercase; color: #677154; }
+.entourage-names { list-style: none; padding: 0; margin: 0; font-size: 22px; line-height: 1.55; }
+.entourage-names li { overflow-wrap: anywhere; }
+.entourage-names li + li { margin-top: 8px; }
+.entourage-honors { margin-bottom: 42px; }
+.entourage-flower-girls { margin-top: 38px; }
+.entourage-section > .flourish:last-child { margin-bottom: 0; }
+@media (max-width: 700px) {
+  .entourage-trio { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .entourage-section { scroll-margin-top: 56px; padding-top: 65px; padding-bottom: 70px; }
+  .entourage-content { margin-top: 36px; }
+  .entourage-columns { grid-template-columns: 1fr; gap: 30px; }
+  .entourage-block { padding: 30px 0; }
+  .entourage-group h4 { font-size: 9px; margin-bottom: 14px; }
+  .entourage-names { font-size: 21px; }
+}
+@media print {
+  .entourage-group { break-inside: avoid; }
+}
