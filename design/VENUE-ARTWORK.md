@@ -1,12 +1,16 @@
 # Venue illustrations and animation
 
-The Meet us here section uses a floral church for the ceremony and a table for two for the reception, prepared from the user's attached illustrations with the built-in imagegen tool (transparent background-extraction edits). Source PNGs and 640 × 640 WebP runtime versions are saved in `src/assets/venues/`. Runtime images preserve alpha and use WebP quality 90.
+The Meet us here section uses a church for the ceremony and a table for two for the reception, prepared from the user's attached illustrations with the built-in imagegen tool. The church's doorway garland has been removed while preserving its wooden door, architecture, trees, and flower beds at ground level. The revised church source is `src/assets/venues/ceremony-church-no-door-flowers-source.png`; its runtime file remains `ceremony-church.webp`. Original source PNGs remain preserved. The 640 × 640 runtime WebPs preserve alpha and use WebP quality 90.
 
 Each venue gently rises and sways once on entering view, using the schedule's `timeline-icon-arrive` animation. A warm radial glow and subtle heading highlight accompany it. Leaving view resets the animation for the next visit. Effects are enabled only after the envelope finishes opening. Reduced-motion visitors and printing show still icons. Without IntersectionObserver, all artwork, text and map links remain visible. Observer cleanup runs on replay and unmount.
 
 ## Church prompt
 
 Use case: background-extraction. Asset type: wedding website venue icon. The edit targets are the TWO images attached in the most recent USER message: a cream embroidered floral CHURCH with tall cross and sage roof, and a cream embroidered reception TABLE FOR TWO with pink flowers. Ignore the older woven chapel/rings reference images emitted by assistant tools. For this output, extract ONLY the user's church illustration faithfully. Preserve the exact church architecture, tall spire and cross, peach-ivory walls, sage roof and trees, pink floral arch and flowers, needlework texture, orientation and proportions. Remove any black/colored transparency fringe, keep clean soft edges. Return a single centered church cutout on actual transparent alpha, square canvas, entire cross and flowers visible, only 5% transparent margin. No redesign, no added text, no floor/background, no glow, no shadows outside the illustration.
+
+## Doorway garland removal prompt
+
+Use case: precise-object-edit. Edit target: the attached local ceremony church cutout. Remove ONLY the floral garland arch surrounding the front wooden doorway: remove all pink and cream blossoms, green leaves, and green vines that climb the two sides of the main door and curve above its pointed arch (roughly middle-right facade, x=42–75% and y=53–88% of the image). Reconstruct clean pale peach/ivory church wall and the simple pointed architectural door surround where that garland was. Keep the wooden double door fully intact. Preserve the whole church architecture, tall tower, cross, sage roof, windows, round rose window, trees, perspective, dimensions, framing, textured stitched/painterly materials, colors and lighting. IMPORTANT: KEEP the separate flower beds at the bottom-left and bottom-right of the church unchanged. Only remove the garland on the wall around the doorway, not the ground flowers. Preserve the original transparent alpha background and full composition. No redesign, no new objects, no text, no border, no cast shadow or added background.
 
 ## Reception prompt
 

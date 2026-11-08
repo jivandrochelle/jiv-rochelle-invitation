@@ -1,4 +1,5 @@
-.rsvp-section { --section-tone: #e7e8dd; scroll-margin-top: 64px; }
+.rsvp-section { scroll-margin-top: 64px; }
+.rsvp-section.section { --section-tone: #e8ddcc; }
 .rsvp-section h2 { margin-top: 0; }
 .rsvp-section > .section-intro { max-width: 420px; margin-inline: auto; }
 .rsvp-card { position: relative; max-width: 710px; margin: 38px auto 0; padding: 40px 32px; background: #f5efe5; border: 1px dashed #92967c; outline: 1px solid #92967c38; outline-offset: 7px; }

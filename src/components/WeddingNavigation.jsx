@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 import { useScrollFrame } from '../useScrollFrame.js'
 import Ampersand from './Ampersand.jsx'
+import progressBow from '../assets/bow-cream.png'
 
 const LINKS = [
   ['countdown', 'The countdown'],
@@ -39,6 +40,9 @@ export default function WeddingNavigation({ enabled }) {
       {LINKS.map(([id, label], index) => <a key={id} href={`#${id}`} className={id === 'rsvp' ? 'rsvp-nav' : index > 2 ? 'secondary-nav' : undefined} aria-current={current === id ? 'location' : undefined}>{label}</a>)}
     </nav>
     <span className="header-date">07.02.27</span>
-    <div className="reading-thread" ref={thread} aria-hidden="true"><span /></div>
+    <div className="reading-thread" ref={thread} aria-hidden="true">
+      <span className="reading-ribbon" />
+      <img className="reading-thread-bow" src={progressBow} width="141" height="161" alt="" decoding="async" draggable="false" />
+    </div>
   </header>
 }
