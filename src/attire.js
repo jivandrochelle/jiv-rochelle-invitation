@@ -1,6 +1,6 @@
 export const ATTIRE_PALETTES = [
-  { title: 'Shades of blue', family: 'Blue', gender: 'male', audience: 'For the gentlemen', colors: [['Misty', '#bccddb'], ['Powder', '#a9c3dd'], ['French', '#7399c9'], ['Cloud', '#d9e5f0'], ['Slate', '#6c7ea3']] },
-  { title: 'Shades of pink', family: 'Pink', gender: 'female', audience: 'For the ladies', colors: [['Blush', '#f2d1cc'], ['Dusty', '#d3a3a3'], ['Rose', '#e59fb0'], ['Peach', '#f5c2a6'], ['Soft', '#f8dde1']] },
+  { title: 'Shades of blue', family: 'Blue', colors: [['Misty', '#bccddb'], ['Powder', '#a9c3dd'], ['French', '#7399c9'], ['Cloud', '#d9e5f0'], ['Slate', '#6c7ea3']] },
+  { title: 'Shades of pink', family: 'Pink', colors: [['Blush', '#f2d1cc'], ['Dusty', '#d3a3a3'], ['Rose', '#e59fb0'], ['Peach', '#f5c2a6'], ['Soft', '#f8dde1']] },
 ]
 
 // Variants are mapped by the supplied garment color, not filename order.
@@ -13,19 +13,23 @@ export const ATTIRE_GUESTS = [
   { id: 'left-male-2', gender: 'male', variants: [1, 2, 3, 4, 5], x: 90, depth: 2, size: 100 },
 ]
 
-export function chooseGuestColor(current, gender, name) {
-  const palette = ATTIRE_PALETTES.find(item => item.gender === gender)
+export function chooseGuestColor(family, name) {
+  const palette = ATTIRE_PALETTES.find(item => item.family === family)
   const index = palette?.colors.findIndex(([shade]) => shade === name)
   if (index === undefined || index < 0) throw new RangeError('Choose a shade from the guest palette.')
   const [shade, color] = palette.colors[index]
-  return { ...current, [gender]: { index, color, name: `${shade} ${palette.family}`, gender } }
+  return { index, color, name: `${shade} ${palette.family}`, family }
 }
 
-export function getGuestOutfit(guest, choices) {
-  const index = choices[guest.gender]?.index ?? 0
+export const getGuestNativeFamily = guest => guest.gender === 'male' ? 'Blue' : 'Pink'
+
+export function getGuestOutfit(guest, choice) {
+  // Keep supplied variants for their original palette. The other palette uses
+  // the first portrait with a garment-only color treatment, preserving the pose.
+  const index = choice?.family === getGuestNativeFamily(guest) ? choice.index : 0
   return `${guest.id}-${guest.variants[index]}.webp`
 }
 
-export function getGuestColorName(choices, gender) {
-  return choices[gender]?.name ?? (gender === 'male' ? 'Misty Blue' : 'Blush Pink')
+export function getGuestColorName(choice, gender) {
+  return choice?.name ?? (gender === 'male' ? 'Misty Blue' : 'Blush Pink')
 }

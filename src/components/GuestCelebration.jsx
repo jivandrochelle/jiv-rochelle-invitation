@@ -1,35 +1,36 @@
 import { useEffect, useState } from 'react'
 import { ATTIRE_GUESTS, getGuestColorName, getGuestOutfit } from '../attire.js'
 import { guestOutfitSource } from '../attireArtwork.js'
+import GuestOutfit from './GuestOutfit.jsx'
 import './GuestCelebration.css'
 
-function OutfitImage({ source, description, width }) {
-  const [images, setImages] = useState({ current: source, previous: null })
+function OutfitImage({ outfit, guest }) {
+  const [images, setImages] = useState({ current: outfit, previous: null })
   // Finish an in-flight fade before showing the latest requested source, so a
   // quick second click cannot promote a half-visible layer back to full opacity.
-  if (images.current !== source && !images.previous) setImages({ current: source, previous: images.current })
+  if (images.current.key !== outfit.key && !images.previous) setImages({ current: outfit, previous: images.current })
   useEffect(() => {
     if (!images.previous) return
     const timer = window.setTimeout(() => setImages(current => ({ ...current, previous: null })), 650)
     return () => window.clearTimeout(timer)
   }, [images.current, images.previous])
   return <>
-    {images.previous && <img key={`previous-${images.previous}`} className="guest-outfit-previous" src={images.previous} width={width} height="960" alt="" aria-hidden="true" draggable="false" />}
-    <img key={images.current} className={`guest-outfit-current ${images.previous ? 'is-changing' : ''}`} src={images.current} width={width} height="960" loading="lazy" decoding="async" draggable="false" alt={description} />
+    {images.previous && <span key={`previous-${images.previous.key}`} className="guest-outfit-previous" aria-hidden="true"><GuestOutfit guest={guest} outfit={images.previous} decorative /></span>}
+    <span key={images.current.key} className={`guest-outfit-current ${images.previous ? 'is-changing' : ''}`}><GuestOutfit guest={guest} outfit={images.current} /></span>
   </>
 }
 
-export default function GuestCelebration({ choices }) {
+export default function GuestCelebration({ choice }) {
   return <figure className="guest-celebration" id="celebration-guests" aria-label="An embroidered group of six wedding guests">
     <div className="guest-celebration-scene">
       {ATTIRE_GUESTS.map(guest => <span className={`celebration-person is-${guest.gender}`} key={guest.id} data-guest={guest.id} style={{ '--guest-x': `${guest.x}%`, '--guest-depth': guest.depth, '--guest-size': `${guest.size}%`, '--guest-ratio': (guest.width ?? 640) / 960 }}>
-        <OutfitImage source={guestOutfitSource(getGuestOutfit(guest, choices))} width={guest.width ?? 640} description={`Wedding guest wearing ${getGuestColorName(choices, guest.gender)} ${guest.gender === 'male' ? 'formalwear' : 'a gown'}`} />
+        <OutfitImage outfit={{ source: guestOutfitSource(getGuestOutfit(guest, choice)), choice, key: `${getGuestOutfit(guest, choice)}-${choice?.name ?? 'default'}` }} guest={guest} />
       </span>)}
     </div>
     <figcaption className="sr-only" aria-live="polite" aria-atomic="true">
-      <span><small>Gentlemen</small>{getGuestColorName(choices, 'male')}</span>
+      <span><small>Gentlemen</small>{getGuestColorName(choice, 'male')}</span>
       <i aria-hidden="true">&amp;</i>
-      <span><small>Ladies</small>{getGuestColorName(choices, 'female')}</span>
+      <span><small>Ladies</small>{getGuestColorName(choice, 'female')}</span>
     </figcaption>
   </figure>
 }

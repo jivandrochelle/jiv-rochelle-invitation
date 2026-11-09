@@ -28,6 +28,9 @@ export function getCoastalElementSize(element, environment = window) {
   return { width: parseFloat(style.width) || element.clientWidth, height: parseFloat(style.height) || element.clientHeight }
 }
 
+// A modest shared speed increase keeps clouds and sea in the same gentle rhythm.
+const COASTAL_DRIFT_SPEED = 1.2
+
 export const COASTAL_CLOUDS = [
   { shape: 'wisp', left: 55, top: -1, width: 40, seconds: 22, delay: -6, travel: 16, opacity: .94 },
   { shape: 'rounded', left: 73, top: 5.5, width: 25, seconds: 34, delay: -12, travel: 13, opacity: .90 },
@@ -37,7 +40,7 @@ export const COASTAL_CLOUDS = [
   { shape: 'filament', left: 61, top: 70, width: 33, seconds: 25.6, delay: -6.4, travel: 10, opacity: .87, mirror: true },
   { shape: 'rounded', left: 76, top: 73, width: 23, seconds: 28, delay: -17.6, travel: 10, opacity: .90 },
   { shape: 'wisp', left: 83, top: 76, width: 20, seconds: 29.6, delay: -12, travel: 8, opacity: .83 },
-]
+].map(cloud => ({ ...cloud, seconds: cloud.seconds / COASTAL_DRIFT_SPEED, delay: cloud.delay / COASTAL_DRIFT_SPEED }))
 
 export const COASTAL_PETALS = [
   // Uneven rolling releases overlap around mid-flight, rather than arriving
@@ -68,7 +71,7 @@ export function getCoastalSeaCurrents(seconds) {
   // Independent one-way flows: right, left, right. Two staggered texture
   // samples hide each reset, so no band has to stop or reverse direction.
   return [[6.4, 1], [8.4, -1], [10.4, 1]].map(([period, direction]) => {
-    const phase = (time / period) % 1
+    const phase = (time * COASTAL_DRIFT_SPEED / period) % 1
     const alternate = (phase + .5) % 1
     return {
       offsetA: (phase - .5) * .032 * direction * strength,

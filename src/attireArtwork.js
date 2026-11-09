@@ -5,9 +5,9 @@ const loaded = new Map()
 
 export const guestOutfitSource = filename => artwork[`./assets/attire-guests/${filename}`]
 
-export function preloadGuestColor(choices, gender) {
-  return Promise.all(ATTIRE_GUESTS.filter(guest => guest.gender === gender).map(guest => {
-    const source = guestOutfitSource(getGuestOutfit(guest, choices))
+export function preloadGuestColor(choice) {
+  return Promise.all(ATTIRE_GUESTS.map(guest => {
+    const source = guestOutfitSource(getGuestOutfit(guest, choice))
     if (!loaded.has(source)) {
       const request = new Promise((resolve, reject) => {
         const image = new Image()

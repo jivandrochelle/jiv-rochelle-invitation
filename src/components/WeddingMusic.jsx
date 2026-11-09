@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import { createWeddingMusicController, WEDDING_MUSIC } from '../music.js'
 import './WeddingMusic.css'
 
-const WeddingMusic = forwardRef(function WeddingMusic({ visible }, ref) {
+const WeddingMusic = forwardRef(function WeddingMusic({ visible, aboveSkip = false }, ref) {
   const audio = useRef(null)
   const controller = useRef(null)
   const [state, setState] = useState({ playing: false, unavailable: false })
@@ -20,7 +20,7 @@ const WeddingMusic = forwardRef(function WeddingMusic({ visible }, ref) {
   const label = state.unavailable ? 'Background music unavailable' : state.playing ? 'Pause background music' : 'Play background music'
   return <>
     <audio ref={audio} id="wedding-background-music" src={`${import.meta.env.BASE_URL}${WEDDING_MUSIC.path}`} loop preload="none" hidden />
-    {visible && <button type="button" className="music-toggle" onClick={() => { void controller.current?.toggle() }}
+    {visible && <button type="button" className={`music-toggle${aboveSkip ? ' music-toggle-above-skip' : ''}`} onClick={() => { void controller.current?.toggle() }}
       aria-label={label} title={label} aria-controls="wedding-background-music" aria-pressed={state.playing} disabled={state.unavailable}>
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M11 4.5 5.5 9h-3v6h3l5.5 4.5Z" fill="currentColor" stroke="none" />

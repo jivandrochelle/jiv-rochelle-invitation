@@ -1,6 +1,7 @@
 // Published, guest-facing Google Form for the wedding RSVP.
 // Keep the form editor and response spreadsheet links private.
 export const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfUSmH5ujY51mPOR7MyTP8MyRUMUwYdSJfEkBqtlVb2BlbvkA/viewform?usp=dialog'
+export const RSVP_DEADLINE = { date: '2026-12-27', label: 'December 27, 2026' }
 
 export function getGoogleFormLinks(value) {
   if (typeof value !== 'string' || !value.trim()) return null

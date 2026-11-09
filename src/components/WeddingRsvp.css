@@ -3,19 +3,20 @@
 .rsvp-section h2 { margin-top: 0; }
 .rsvp-section > .section-intro { max-width: 420px; margin-inline: auto; }
 .rsvp-card { position: relative; max-width: 710px; margin: 38px auto 0; padding: 40px 32px; background: #f5efe5; border: 1px dashed #92967c; outline: 1px solid #92967c38; outline-offset: 7px; }
-.rsvp-card-label { display: block; font: 9px/1.8 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #74745d; }
+.rsvp-card-label { display: block; font: 12px/1.8 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #74745d; }
+.rsvp-deadline { max-width: 420px; margin: 18px auto 0; font-size: 20px; line-height: 1.5; text-wrap: balance; }
+.rsvp-deadline time { font-weight: 600; color: #586047; }
 .rsvp-card h3 { font-size: 35px; line-height: 1.1; margin-top: 22px; }
 .rsvp-card-copy { font-size: 20px; line-height: 1.55; max-width: 430px; margin: 18px auto 0; }
-.rsvp-button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 48px; padding: 16px 25px; margin-top: 28px; border: 1px solid #6d765b; background: #6d765b; color: #fffaf0; font: 10px/1.5 var(--sans); letter-spacing: .12em; text-transform: uppercase; transition: background .2s; }
+.rsvp-button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 48px; padding: 16px 25px; margin-top: 28px; border: 1px solid #6d765b; background: #6d765b; color: #fffaf0; font: 12px/1.5 var(--sans); letter-spacing: .1em; text-transform: uppercase; transition: background .2s; }
 .rsvp-button:hover { background: #596348; }
 .rsvp-button span { font-size: 16px; line-height: 1; }
-.rsvp-footnote { font-size: 15px; line-height: 1.5; margin-top: 20px; }
 .site-header nav .rsvp-nav { font-weight: 600; color: #586047; }
 @media (max-width: 600px) {
   .rsvp-section { scroll-margin-top: 56px; }
   .rsvp-section.section { padding-inline: 20px; }
   .rsvp-card { padding: 30px 12px; outline-offset: 5px; }
-  .rsvp-card-label { font-size: 8px; letter-spacing: .08em; }
+  .rsvp-card-label { font-size: 12px; letter-spacing: .06em; }
   .rsvp-card h3 { font-size: 30px; }
   .rsvp-card-copy { padding-inline: 10px; }
   .rsvp-card-copy { font-size: 19px; }

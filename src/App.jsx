@@ -139,7 +139,12 @@ export default function App() {
   }
   const handleEnvelopeUnavailable = () => {
     window.scrollTo({ top: 0, behavior: 'instant' })
+    setOpeningStarted(false)
     setStage('done')
+  }
+  const skipOpening = () => {
+    if (stage === 'closed') void musicRef.current?.start()
+    handleEnvelopeUnavailable()
   }
   const replayOpening = () => {
     musicRef.current?.reset()
@@ -152,7 +157,7 @@ export default function App() {
   return <>
     <div ref={contentRef} className={`invitation-shell ${openingStarted ? 'has-started' : ''} ${stage === 'done' ? 'is-open' : ''}`} inert={stage !== 'done'}
       style={{ '--page-reveal-delay': `${ENVELOPE_OPENING_MS - ENVELOPE_CROSSFADE_MS}ms`, '--page-reveal-duration': `${ENVELOPE_CROSSFADE_MS}ms` }}>
-      <WeddingNavigation enabled={stage === 'done'} />
+      <WeddingNavigation key={openingCycle} enabled={stage === 'done'} />
       <main>
         <section className="invitation-cover" id="invitation" aria-labelledby="couple-names">
           <CoastalScene key={openingCycle} enabled={stage === 'done'} onReady={setCoastalReady} />
@@ -178,7 +183,7 @@ export default function App() {
       </main>
       <footer className="closing-section section"><p className="eyebrow">We can’t wait to celebrate with you</p><Monogram /><p className="closing-names">Jiv <Ampersand /> Rochelle</p><p className="closing-date">February 7, 2027 · Cebu</p><button className="replay-button" onClick={replayOpening}><span aria-hidden="true">↺</span> Open the magic again</button></footer>
     </div>
-    <EnvelopeOpening key={openingCycle} stage={stage} sceneReady={coastalReady} onOpen={openInvitation} onUnavailable={handleEnvelopeUnavailable} />
-    <WeddingMusic ref={musicRef} visible={stage !== 'closed'} />
+    <EnvelopeOpening key={openingCycle} stage={stage} sceneReady={coastalReady} onOpen={openInvitation} onSkip={skipOpening} onUnavailable={handleEnvelopeUnavailable} />
+    <WeddingMusic ref={musicRef} visible={stage !== 'closed'} aboveSkip={stage === 'opening'} />
   </>
 }

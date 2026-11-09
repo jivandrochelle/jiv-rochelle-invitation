@@ -1,14 +1,16 @@
+import { RSVP_DEADLINE } from './rsvp.js'
+
 export const WEDDING_QUESTIONS = [
   {
     question: 'WHEN IS THE RSVP DEADLINE?',
     paragraphs: [
-      'Please confirm your attendance on or before December 27, 2026. We would appreciate receiving your response by this date to help us finalize our guest list.',
+      `Please confirm your attendance on or before ${RSVP_DEADLINE.label}. We would appreciate receiving your response by this date to help us finalize our guest list.`,
     ],
   },
   {
     question: 'WHAT IF I FAIL TO RSVP ON TIME?',
     paragraphs: [
-      'Unfortunately, we will be unable to accommodate guests who have not confirmed their attendance by December 27, 2026. We need to submit our final guest count to the venue and suppliers in advance.',
+      `Unfortunately, we will be unable to accommodate guests who have not confirmed their attendance by ${RSVP_DEADLINE.label}. We need to submit our final guest count to the venue and suppliers in advance.`,
       'Guests who have not responded by the deadline will receive a missed RSVP notice, and their seats will no longer be reserved.',
     ],
   },

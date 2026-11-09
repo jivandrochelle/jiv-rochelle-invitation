@@ -1,4 +1,4 @@
-import { GOOGLE_FORM_URL, getGoogleFormLinks } from '../rsvp.js'
+import { GOOGLE_FORM_URL, RSVP_DEADLINE, getGoogleFormLinks } from '../rsvp.js'
 import './WeddingRsvp.css'
 
 export default function WeddingRsvp({ formUrl = GOOGLE_FORM_URL }) {
@@ -12,8 +12,8 @@ export default function WeddingRsvp({ formUrl = GOOGLE_FORM_URL }) {
       <span className="rsvp-card-label">Jiv &amp; Rochelle · February 7, 2027</span>
       {links ? <>
         <h3>Will you join us?</h3>
+        <p className="rsvp-deadline">Please RSVP by <time dateTime={RSVP_DEADLINE.date}>{RSVP_DEADLINE.label}</time>.</p>
         <a className="rsvp-button" href={links.responder} target="_blank" rel="noopener noreferrer">Fill in your RSVP <span aria-hidden="true">↗</span></a>
-        <p className="rsvp-footnote">Please select Submit in the form to send your response.</p>
       </> : <>
         <h3>RSVP will open soon</h3>
         <p className="rsvp-card-copy">Please check back to let us know if you can join us. We can’t wait to celebrate together.</p>

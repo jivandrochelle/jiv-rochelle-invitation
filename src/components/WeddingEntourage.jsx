@@ -4,6 +4,7 @@ import './WeddingEntourage.css'
 const PRINCIPAL_SPONSORS = [
   ['Atty. Paulino Labrado', 'Ms. Emilyn Gonzales'],
   ['Atty. Allan Frederick Blanco', 'Mrs. Denise Blanco'],
+  ['Atty. Zeus Mabanag', 'Mrs. Gwen Mabanag'],
   ['Mr. Roche Altizo', 'Mrs. Cordelie Altizo'],
   ['Mr. Aldwin Go', 'Mrs. Shiryll Go'],
   ['Mr. Ronald Abejo', 'Mrs. Princess Abejo'],
@@ -17,12 +18,12 @@ const WEDDING_PARTY = [
 const SECONDARY_SPONSORS = [
   { title: 'Candle sponsors', names: ['Mr. Allan Arguelles', 'Mrs. Kazumi Arguelles'] },
   { title: 'Veil sponsors', names: ['Mr. Noel Anthony Arandilla', 'Mrs. Angelica Lao Arandilla'] },
-  { title: 'Cord sponsors', names: ['Mrs. Ginnelle Anne Gevara', 'Mr. Ash Gevara'] },
+  { title: 'Cord sponsors', names: ['Mrs. Ginnelle Anne Gevara', 'Mr. Ashley Allen Gevara'] },
 ]
 
 const BEARERS = [
   { title: 'Ring bearer', name: 'Ms. Rhusell Catriona Tiu' },
-  { title: 'Bible bearer', name: 'Mr. Kim Bryan Reyes' },
+  { title: 'Bible bearer', name: 'Engr. Kim Bryan Reyes' },
   { title: 'Coin bearer', name: 'Engr. Judd Sydney Gonzales' },
 ]
 
@@ -43,16 +44,21 @@ export default function WeddingEntourage() {
     <div className="entourage-content">
       <div className="entourage-block">
         <h3>Principal sponsors</h3>
-        <div className="entourage-columns">
-          <NameGroup title="Male principal sponsors" names={PRINCIPAL_SPONSORS.map(([name]) => name)} />
-          <NameGroup title="Female principal sponsors" names={PRINCIPAL_SPONSORS.map(([, name]) => name)} />
+        <div className="principal-headings" aria-hidden="true">
+          <span>Male principal sponsors</span><span>Female principal sponsors</span>
         </div>
+        <ul className="principal-pairs" aria-label="Principal sponsor pairs">
+          {PRINCIPAL_SPONSORS.map(([male, female]) => <li className="principal-pair" key={male}>
+            <div><span className="principal-role">Male principal sponsor</span><span>{male}</span></div>
+            <div><span className="principal-role">Female principal sponsor</span><span>{female}</span></div>
+          </li>)}
+        </ul>
       </div>
 
       <div className="entourage-block">
         <h3 className="sr-only">Wedding party</h3>
         <div className="entourage-columns entourage-honors">
-          <NameGroup title="Best man" names={['Dr. Jaques Simon Gonzales']} />
+          <NameGroup title="Best man" names={['Dr. Jacques Simon Gonzales']} />
           <NameGroup title="Maid of honor" names={['Ms. Kyla Marie Reyes']} />
         </div>
         <div className="entourage-columns">
@@ -73,7 +79,7 @@ export default function WeddingEntourage() {
           {BEARERS.map(({ title, name }) => <NameGroup key={title} title={title} names={[name]} />)}
         </div>
         <div className="entourage-flower-girls">
-          <NameGroup title="Flower girls" names={['Ms. Samantha Jezaine Madalura']} />
+          <NameGroup title="Flower girl" names={['Ms. Samantha Jezaine Madalura']} />
         </div>
       </div>
     </div>

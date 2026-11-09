@@ -1,5 +1,6 @@
 .music-toggle { position: fixed; z-index: 200; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid #a3927966; border-radius: 50%; background: #f7f1e5f5; color: #66563f; box-shadow: 0 3px 12px #584b3d18; transition: background-color .2s, color .2s; }
 .music-toggle svg { display: block; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.music-toggle-above-skip { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
 .music-toggle[aria-pressed="true"] { background: #e7e8dd; color: #566345; }
 .music-toggle:hover { background: #fffaf0; }
 .music-toggle:disabled { opacity: .7; }

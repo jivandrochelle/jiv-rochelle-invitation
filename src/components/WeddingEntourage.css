@@ -5,7 +5,14 @@
 .entourage-block > h3:not(.sr-only) { font-size: clamp(28px, 4vw, 35px); line-height: 1.2; margin-bottom: 30px; }
 .entourage-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 48px; }
 .entourage-trio { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
-.entourage-group h4 { margin: 0 0 18px; font: 10px/1.8 var(--sans); letter-spacing: .13em; text-transform: uppercase; color: #677154; }
+.entourage-group h4, .principal-headings > span { display: block; padding: 12px 14px; border-bottom: 1px solid #92967c80; background: #92967c14; font: 600 12px/1.8 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #566147; }
+.entourage-group h4 { margin: 0 0 22px; }
+.principal-headings, .principal-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+.principal-headings { margin-bottom: 26px; }
+.principal-pairs { list-style: none; padding: 0; margin: 0; font-size: 22px; line-height: 1.55; }
+.principal-pair + .principal-pair { margin-top: 12px; }
+.principal-pair > div { min-width: 0; overflow-wrap: anywhere; }
+.principal-role { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .entourage-names { list-style: none; padding: 0; margin: 0; font-size: 22px; line-height: 1.55; }
 .entourage-names li { overflow-wrap: anywhere; }
 .entourage-names li + li { margin-top: 8px; }
@@ -20,9 +27,14 @@
   .entourage-content { margin-top: 36px; }
   .entourage-columns { grid-template-columns: 1fr; gap: 30px; }
   .entourage-block { padding: 30px 0; }
-  .entourage-group h4 { font-size: 9px; margin-bottom: 14px; }
+  .entourage-group h4 { font-size: 12px; margin-bottom: 18px; }
   .entourage-names { font-size: 21px; }
+  .principal-headings { display: none; }
+  .principal-pair { grid-template-columns: 1fr; gap: 14px; }
+  .principal-pair + .principal-pair { margin-top: 22px; padding-top: 22px; border-top: 1px dashed #92967c40; }
+  .principal-pairs { font-size: 21px; }
+  .principal-role { position: static; display: block; width: fit-content; max-width: 100%; height: auto; margin: 0 auto 8px; padding: 6px 10px; border-bottom: 1px solid #92967c80; background: #92967c14; overflow: visible; clip-path: none; white-space: normal; font: 600 11px/1.8 var(--sans); letter-spacing: .09em; text-transform: uppercase; color: #566147; }
 }
 @media print {
-  .entourage-group { break-inside: avoid; }
+  .entourage-group, .principal-pair { break-inside: avoid; }
 }

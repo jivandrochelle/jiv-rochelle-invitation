@@ -5,7 +5,7 @@
 .faq-list { max-width: 760px; margin: 42px auto 0; text-align: left; }
 .faq-item { border-top: 1px dashed #a08b7573; }
 .faq-item:last-child { border-bottom: 1px dashed #a08b7573; }
-.faq-item summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 74px; padding: 23px 12px; font: 10px/1.9 var(--sans); letter-spacing: .1em; color: #665845; cursor: pointer; list-style: none; transition: color .25s ease, background-color .25s ease; }
+.faq-item summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 74px; padding: 23px 12px; font: 12px/1.8 var(--sans); letter-spacing: .07em; color: #665845; cursor: pointer; list-style: none; transition: color .25s ease, background-color .25s ease; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary:hover, .faq-item[open] summary { color: #677154; background: #fff7e74d; }
 .faq-item summary:focus-visible { outline: 2px solid #79613b; outline-offset: 4px; }
@@ -21,7 +21,7 @@
 @media (max-width: 600px) {
   .faq-section { scroll-margin-top: 56px; padding-top: 76px; padding-bottom: 70px; }
   .faq-list { margin-top: 32px; }
-  .faq-item summary { padding: 21px 4px; gap: 16px; font-size: 9px; letter-spacing: .07em; }
+  .faq-item summary { padding: 21px 4px; gap: 16px; font-size: 12px; letter-spacing: .05em; }
   .faq-answer { padding: 0 4px 24px; }
   .faq-answer p { font-size: 19px; }
 }

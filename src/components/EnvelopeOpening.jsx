@@ -23,16 +23,17 @@ const PAPER_EDGES = PAPER_EDGE_SEGMENTS.map(([[x, y], [endX, endY]]) => {
   }
 })
 
-export default function EnvelopeOpening({ stage, onOpen, onUnavailable, sceneReady = false }) {
+export default function EnvelopeOpening({ stage, onOpen, onSkip, onUnavailable, sceneReady = false }) {
   const [envelopeReady, setEnvelopeReady] = useState(false)
   const [letterReady, setLetterReady] = useState(false)
   const [failed, setFailed] = useState(false)
   const ready = envelopeReady && letterReady && sceneReady
   const triggerRef = useRef(null)
+  const skipRef = useRef(null)
   const id = `envelope-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`
 
   useEffect(() => {
-    if (ready && stage === 'closed') triggerRef.current?.focus({ preventScroll: true })
+    if (ready && stage === 'closed' && document.activeElement !== skipRef.current) triggerRef.current?.focus({ preventScroll: true })
   }, [ready, stage])
 
   if (stage === 'done') return null
@@ -105,6 +106,7 @@ export default function EnvelopeOpening({ stage, onOpen, onUnavailable, sceneRea
     </div>
     <button ref={triggerRef} className="envelope-trigger" onClick={onOpen} disabled={!ready || opening}
       aria-label="Open Jiv and Rochelle’s wedding envelope" />
+    <button ref={skipRef} className="envelope-skip" type="button" onClick={onSkip ?? onUnavailable}>Skip</button>
     {failed && !ready && <button className="envelope-fallback" onClick={onUnavailable} autoFocus>View invitation</button>}
     <span className="sr-only" role="status">{opening ? 'The envelope is opening. Your invitation is inside.' : !ready && !failed ? 'Preparing your invitation.' : ''}</span>
   </div>
