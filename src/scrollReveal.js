@@ -8,6 +8,8 @@ const REVEAL_SELECTOR = [
   '.section .swatches',
   '.section .monogram',
   '.section .replay-button',
+  '.entourage-section .principal-pair > div',
+  '.entourage-section .entourage-names > li',
 ].join(', ')
 
 // Text is readable by default. Only supported, motion-enabled browsers enhance it.
