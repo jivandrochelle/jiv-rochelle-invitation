@@ -13,7 +13,7 @@ The opening uses the user's supplied embroidered coastal envelope. The invitatio
 
 `EnvelopeOpening.jsx` uses the original image for the pocket and triangular hinged flap. The flap pivots at the actual horizontal fold at native y = 648, while the upper linen stays in place behind it. The original wax seal belongs to the moving flap. The closed layers reconstruct the supplied illustration. No new artwork was generated.
 
-The flap has a textured linen reverse with a stitched border, a separate front face, and three solid side walls joining them. The diagonal side walls end outside the seal's footprint, preventing their light edges from crossing the wax. The paper is 3–5 CSS pixels thick depending on screen size. Its faces use backface culling, while the wrapper preserves their 3D arrangement, so a continuous material edge remains visible as the paper passes through 90 degrees. The reverse uses linen sampled from the supplied envelope.
+The flap has a textured linen reverse with a stitched border, a separate front face, and three solid side walls joining them. The diagonal side walls end outside the seal's footprint, preventing their light edges from crossing the wax. The paper is 1–2 CSS pixels thick depending on screen size, with fine fiber lines and softly shaded edges. Its faces use backface culling, while the wrapper preserves their 3D arrangement, so a continuous material edge remains visible as the paper passes through 90 degrees. The reverse uses linen sampled from the supplied envelope. A fine outer rim uses the same sampled linen, with a restrained highlight, subtle shading and faint matching side shadows to suggest a folded paper envelope.
 
 The ten-second opening gives each movement room:
 
@@ -25,7 +25,7 @@ The ten-second opening gives each movement room:
 
 The page remains inert until the opening completes; focus then moves to the names and scrolling unlocks. The footer replays the same sequence. Reduced-motion visitors get a short direct transition. A failed envelope download exposes a View invitation fallback. The main-page reveal delay derives from the shared duration and crossfade constants in `src/wedding.js`.
 
-The full opening is a keyboard-accessible button. The envelope has no added visible text, circle hint, or seal outline. The original J&R lettering in the wax artwork remains. Letter and second-page text appear inside the invitation as before. On phones the centered portrait artwork fills the screen. Wide windows preserve the portrait composition with warm linen on either side. The second page preserves the complete garden on wide screens and uses a centered crop on phones; text sits in its open linen area.
+The full opening is a keyboard-accessible button. The envelope has no added visible text, circle hint, or seal outline. The original J&R lettering in the wax artwork remains. Letter and second-page text appear inside the invitation as before. On phones the centered portrait artwork fills the screen. Wide windows preserve the portrait composition with warm linen on either side. The second page preserves the complete garden on wide screens and uses a centered crop on phones; text sits in its open linen area. The letter and second page share a delicate one-pixel paper edge and a faint, close shadow to suggest a single sheet. On wide screens the edge follows the contained artwork; on phones it follows the visible crop. The second-page side gutters use the same warm linen treatment as the envelope background.
 
 ## Coastal scene motion
 

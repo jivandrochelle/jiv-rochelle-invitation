@@ -1,4 +1,20 @@
-.coastal-scene { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.coastal-scene { container-type: size; position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.coastal-scene::after {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  width: min(100cqw, calc(100cqh * 941 / 1672));
+  height: min(100cqh, calc(100cqw * 1672 / 941));
+  transform: translate(-50%, -50%);
+  border: 1px solid #f5e9d780;
+  box-shadow: -1px 0 3px #75563714, 1px 0 3px #75563714;
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .coastal-scene::after { width: 100%; height: 100%; }
+}
 .coastal-art-preload { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 .coastal-layer-stack { container-type: inline-size; position: absolute; z-index: 0; overflow: hidden; opacity: 0; pointer-events: none; }
 .coastal-petal-stack { z-index: 3; }

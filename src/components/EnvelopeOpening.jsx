@@ -54,6 +54,9 @@ export default function EnvelopeOpening({ stage, onOpen, onSkip, onUnavailable, 
           </pattern>
           <clipPath id={`${id}-upper-linen`}><rect width="941" height="648" /></clipPath>
         </defs>
+        <rect className="envelope-material-rim" x="-2" y="-2" width="945" height="1676" rx="1" fill={`url(#${id}-linen)`} />
+        <path className="envelope-rim-highlight" d="M-1 1673 V-1 H942" />
+        <path className="envelope-rim-shade" d="M942 -1 V1673 H-1" />
         <rect width="941" height="1672" fill={`url(#${id}-linen)`} />
         <image href={envelope} width="941" height="1672" clipPath={`url(#${id}-upper-linen)`} />
       </svg>
