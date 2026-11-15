@@ -1,18 +1,19 @@
-Jiv & Rochelle — Gallery photos
+﻿Jiv & Rochelle - Gallery photos
 
-Add your own JPG, PNG, or WebP photos in this folder.
-Then open src/gallery.js and set each photo's src, caption, and alt description.
+These browser-ready WebP files correspond to the supplied originals in
+src/assets/Pics for wedding invitation/:
 
-Example:
-{ src: 'photos/law-school.jpg', caption: 'Law school days', alt: 'Jiv and Rochelle at law school' }
+the-proposal.webp    -> The proposal (replace law school days).jpg
+us-always.webp       -> US always.HEIC
+little-moments.webp  -> Little Moments.heic
+food-trips.webp      -> Food Trips.JPG
+adventures.webp      -> Adventure.HEIC
+favorite-memory.webp -> Favorite Memory.HEIC
 
-REVEAL_PHOTOS contains the three brush-to-reveal photos.
-MEMORY_PHOTOS contains the five photos in the draggable album.
-The same photo can be used in both lists.
+The proposal is the single brush-to-reveal photo. The other five photos fill
+the draggable album, with captions and framing settings in src/gallery.js.
+Little moments retains the full landscape view so both faces remain visible.
 
-Leave src empty to keep the stitched placeholder. Images that fail to load also
-show the placeholder. Local paths automatically use the GitHub Pages base path.
-
-For the best fit, use portrait photos (roughly 4:5). Photos crop gently to fill
-the frame, so keep faces near the middle. WebP/JPG around 1200 px on the long
-edge will usually be enough for these cards.
+The originals are unchanged. WebP copies have corrected orientation, sRGB
+color, a maximum 1600-pixel edge, and no embedded source metadata.
+Local image paths automatically use the GitHub Pages base path.

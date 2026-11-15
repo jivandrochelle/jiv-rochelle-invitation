@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { createScratchGrid, getPhotoSource, getPhotoSwipe, MEMORY_PHOTOS, recordScratchStroke, REVEAL_PHOTOS, wrapPhotoIndex } from '../gallery.js'
+import { createScratchGrid, getPhotoSource, getPhotoSwipe, MEMORY_PHOTOS, REVEAL_PHOTOS, wrapPhotoIndex } from '../gallery.js'
+import { createSandBrush, paintSandCover, paintSandResidue } from '../sandReveal.js'
 import './WeddingGallery.css'
 import Ampersand from './Ampersand.jsx'
 import Flourish from './Flourish.jsx'
@@ -42,7 +43,7 @@ function FramePetals() {
 function GalleryPhoto({ photo, decorative = false, tone = 0 }) {
   const [failed, setFailed] = useState(false)
   const source = getPhotoSource(photo.src, import.meta.env.BASE_URL)
-  if (source && !failed) return <img src={source} alt={decorative ? '' : photo.alt || photo.caption} loading="lazy" decoding="async" draggable="false" onError={() => setFailed(true)} />
+  if (source && !failed) return <img src={source} alt={decorative ? '' : photo.alt || photo.caption} style={{ objectPosition: photo.position, objectFit: photo.fit }} loading="lazy" decoding="async" draggable="false" onError={() => setFailed(true)} />
   return <div className={`photo-placeholder placeholder-tone-${tone % 3}`} role={decorative ? undefined : 'img'} aria-label={decorative ? undefined : `${photo.caption} — photo coming soon`}>
     <span className="placeholder-stitch" aria-hidden="true" />
     <span className="placeholder-monogram" aria-hidden="true">J<Ampersand />R</span>
@@ -52,6 +53,9 @@ function GalleryPhoto({ photo, decorative = false, tone = 0 }) {
 
 function RevealPhoto({ photo }) {
   const canvasRef = useRef(null)
+  const residueRef = useRef(null)
+  const driftRef = useRef(null)
+  const sandRef = useRef(null)
   const scratch = useRef({ grid: null, last: null, pointer: null, revealed: false })
   const [revealed, setRevealed] = useState(false)
 
@@ -79,6 +83,15 @@ function RevealPhoto({ photo }) {
     canvas.width = Math.round(bounds.width * dpr)
     canvas.height = Math.round(bounds.height * dpr)
     context.setTransform(dpr, 0, 0, dpr, 0, 0)
+    sandRef.current?.resize(bounds.width, bounds.height, dpr)
+    const residue = residueRef.current
+    residue.width = canvas.width
+    residue.height = canvas.height
+    const residueContext = residue.getContext('2d')
+    if (residueContext) {
+      residueContext.setTransform(dpr, 0, 0, dpr, 0, 0)
+      paintSandResidue(residueContext, bounds.width, bounds.height)
+    }
     if (previous) {
       context.drawImage(previous, 0, 0, bounds.width, bounds.height)
       scratch.current.grid.width = bounds.width
@@ -87,24 +100,7 @@ function RevealPhoto({ photo }) {
       return
     }
     const { width, height } = bounds
-    context.fillStyle = '#f5ead8'
-    context.fillRect(0, 0, width, height)
-    context.lineWidth = 0.6
-    for (let x = 0; x < width; x += 4) {
-      context.strokeStyle = x % 8 === 0 ? '#ffffff24' : '#8376600c'
-      context.beginPath(); context.moveTo(x, 0); context.lineTo(x, height); context.stroke()
-    }
-    for (let y = 0; y < height; y += 4) {
-      context.strokeStyle = '#ffffff26'
-      context.beginPath(); context.moveTo(0, y); context.lineTo(width, y); context.stroke()
-    }
-    context.strokeStyle = '#8d897688'
-    context.setLineDash([3, 5])
-    context.lineWidth = 1
-    context.beginPath()
-    context.ellipse(width / 2, height / 2, width * .43, height * .43, 0, 0, Math.PI * 2)
-    context.stroke()
-    context.setLineDash([])
+    paintSandCover(context, width, height, () => document.createElement('canvas'))
     context.fillStyle = '#665b49'
     context.textAlign = 'center'
     context.font = `italic ${Math.max(21, Math.min(36, width / 10))}px Georgia, serif`
@@ -116,12 +112,14 @@ function RevealPhoto({ photo }) {
   }, [reveal])
 
   useEffect(() => {
+    const sand = createSandBrush(canvasRef.current, driftRef.current)
+    sandRef.current = sand
     paint()
     const resize = () => paint(true)
     const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(resize) : null
     observer?.observe(canvasRef.current)
     if (!observer) window.addEventListener('resize', resize)
-    return () => { observer?.disconnect(); window.removeEventListener('resize', resize) }
+    return () => { observer?.disconnect(); window.removeEventListener('resize', resize); sand.destroy(); sandRef.current = null }
   }, [paint])
 
   const brush = event => {
@@ -133,17 +131,9 @@ function RevealPhoto({ photo }) {
     const point = { x: event.clientX - bounds.left, y: event.clientY - bounds.top }
     const from = state.last || point
     const radius = Math.max(22, bounds.width / 9)
-    const context = canvas.getContext('2d')
-    context.globalCompositeOperation = 'destination-out'
-    context.lineCap = 'round'
-    context.lineJoin = 'round'
-    context.lineWidth = radius * 2
-    context.beginPath()
-    context.moveTo(from.x, from.y)
-    context.lineTo(point.x + 0.01, point.y)
-    context.stroke()
+    const progress = sandRef.current?.brush(from, point, radius, state.grid) || 0
     state.last = point
-    if (recordScratchStroke(state.grid, from, point, radius) >= 0.45) reveal()
+    if (progress >= 0.55) reveal()
   }
   const down = event => {
     if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return
@@ -164,7 +154,9 @@ function RevealPhoto({ photo }) {
     <div className="memory-framed-art">
       <div className="memory-photo-window">
         <GalleryPhoto key={photo.src} photo={photo} />
+        <canvas className="memory-sand-residue" ref={residueRef} aria-hidden="true" />
         <canvas className="memory-veil" ref={canvasRef} aria-hidden="true" onPointerDown={down} onPointerMove={brush} onPointerUp={stop} onPointerCancel={stop} onPointerLeave={stop} />
+        <canvas className="memory-sand-drift" ref={driftRef} aria-hidden="true" />
         <FramePetals />
       </div>
       <img className="memory-oval-frame" src={ovalFrame} width="1054" height="1492" alt="" aria-hidden="true" loading="lazy" draggable="false" />
@@ -195,7 +187,7 @@ function MemoryStack({ photos }) {
     node.style.setProperty('--drag-x', '0px')
     node.style.setProperty('--drag-turn', '0deg')
   }
-  const change = direction => {
+  const change = (direction, exitDirection = -direction, dragDistance = 0) => {
     if (busy.current || photos.length < 2) return
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const finish = () => {
@@ -208,8 +200,9 @@ function MemoryStack({ photos }) {
     busy.current = true
     setLeaving(true)
     delete deck.current.dataset.dragging
-    deck.current.style.setProperty('--drag-x', `${-direction * deck.current.clientWidth * 0.85}px`)
-    deck.current.style.setProperty('--drag-turn', `${-direction * 9}deg`)
+    const exitDistance = Math.max(deck.current.clientWidth * 0.85, Math.abs(dragDistance) + deck.current.clientWidth * .25)
+    deck.current.style.setProperty('--drag-x', `${exitDirection * exitDistance}px`)
+    deck.current.style.setProperty('--drag-turn', `${exitDirection * 9}deg`)
     timer.current = window.setTimeout(finish, 280)
   }
   const down = event => {
@@ -231,7 +224,7 @@ function MemoryStack({ photos }) {
     drag.current = null
     delete deck.current.dataset.dragging
     const direction = getPhotoSwipe(delta, deck.current.clientWidth)
-    if (direction) change(direction)
+    if (direction) change(direction, Math.sign(delta), delta)
     else resetDrag()
   }
   const cancel = () => { if (!busy.current) resetDrag() }
@@ -250,7 +243,7 @@ function MemoryStack({ photos }) {
         </figure>
       })}
     </div>
-    <p className="album-hint">Drag a photo sideways to turn the page.</p>
+    <p className="album-hint">Drag left or right to shuffle to the next memory.</p>
     <div className="album-controls">
       <button type="button" onClick={() => change(-1)} disabled={leaving || photos.length < 2} aria-label="Previous memory"><span aria-hidden="true">←</span> Previous</button>
       <span className="album-counter" aria-hidden="true">{String(index + 1).padStart(2, '0')} <i>/</i> {String(photos.length).padStart(2, '0')}</span>

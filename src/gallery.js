@@ -1,15 +1,15 @@
-// Put your photos in public/photos, then set src to e.g. 'photos/law-school.jpg'.
-// Leave src empty to keep the linen placeholder until a photo is ready.
+// Browser-ready copies of the supplied gallery photos live in public/photos.
+// Optional position and fit settings keep each photo composed within its holder.
 export const REVEAL_PHOTOS = [
-  { src: '', caption: 'Law school days', alt: 'Jiv and Rochelle during their law school days' },
+  { src: 'photos/the-proposal.webp', caption: 'The proposal', alt: 'Jiv kneeling to propose to Rochelle on a wooded overlook', position: '27% 50%' },
 ]
 
 export const MEMORY_PHOTOS = [
-  { src: '', caption: 'Us, always', alt: 'Jiv and Rochelle together' },
-  { src: '', caption: 'Little moments', alt: 'An everyday moment with Jiv and Rochelle' },
-  { src: '', caption: 'Coffee dates', alt: 'Jiv and Rochelle on a coffee date' },
-  { src: '', caption: 'Adventures', alt: 'Jiv and Rochelle on an adventure together' },
-  { src: '', caption: 'A favorite memory', alt: 'Jiv and Rochelle before their wedding' },
+  { src: 'photos/us-always.webp', caption: 'Us, always', alt: 'Jiv and Rochelle sharing a meal together' },
+  { src: 'photos/little-moments.webp', caption: 'Little moments', alt: 'Jiv and Rochelle resting together', fit: 'contain' },
+  { src: 'photos/food-trips.webp', caption: 'Food trips', alt: 'Jiv and Rochelle enjoying a restaurant meal' },
+  { src: 'photos/adventures.webp', caption: 'Adventures', alt: 'Jiv and Rochelle at the Universal Studios entrance', position: '50% 65%' },
+  { src: 'photos/favorite-memory.webp', caption: 'A favorite memory', alt: 'Jiv and Rochelle overlooking a snow-covered mountain village' },
 ]
 
 export function getPhotoSource(src, base = '/') {
@@ -25,7 +25,7 @@ export function wrapPhotoIndex(index, length) {
 
 export function getPhotoSwipe(delta, width) {
   if (width <= 0 || Math.abs(delta) < Math.min(70, width * 0.22)) return 0
-  return delta < 0 ? 1 : -1
+  return 1
 }
 
 // Track erased cells instead of reading every pixel on every pointer movement.

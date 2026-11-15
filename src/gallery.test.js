@@ -22,14 +22,25 @@ test('memory navigation wraps in both directions and handles small albums', () =
   assert.equal(wrapPhotoIndex(1, 0), 0)
 })
 
-test('short drags snap back and deliberate horizontal swipes turn one photo', () => {
+test('short drags snap back and either swipe direction advances to the next memory', () => {
   assert.equal(getPhotoSwipe(0, 300), 0)
   assert.equal(getPhotoSwipe(40, 300), 0)
   assert.equal(getPhotoSwipe(-40, 300), 0)
   assert.equal(getPhotoSwipe(-90, 300), 1)
-  assert.equal(getPhotoSwipe(90, 300), -1)
+  assert.equal(getPhotoSwipe(90, 300), 1)
   assert.equal(getPhotoSwipe(-50, 220), 1)
+  assert.equal(getPhotoSwipe(50, 220), 1)
   assert.equal(getPhotoSwipe(-100, 0), 0)
+})
+
+test('mixed left and right shuffles cycle through every memory in order', () => {
+  let index = 0
+  const visited = []
+  for (const delta of [-90, 90, 90, -90, 90]) {
+    index = wrapPhotoIndex(index + getPhotoSwipe(delta, 300), 5)
+    visited.push(index)
+  }
+  assert.deepEqual(visited, [1, 2, 3, 4, 0])
 })
 
 test('brushing the same small patch repeatedly cannot complete a reveal', () => {
