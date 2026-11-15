@@ -11,8 +11,8 @@ const PRINCIPAL_SPONSORS = [
 ]
 
 const WEDDING_PARTY = [
-  { title: 'Groomsmen', names: ['Mr. Colin Royce Ang', 'Mr. Erick Paul Domingo', 'Atty. Alreza Jan Icalina', 'Ms. Maica Carmel Shirl Dizon'] },
-  { title: 'Bridesmaids', names: ['Atty. Shaira Vea Emmanuelle Olarte', 'Atty. Zaidaronica Kho', 'Ms. Arvie Pepito', 'Mr. Reynald Lagang'] },
+  { title: 'Team Groom', names: ['Mr. Colin Royce Ang', 'Mr. Erick Paul Domingo', 'Atty. Alreza Jan Icalina', 'Ms. Maica Carmel Shirl Dizon'] },
+  { title: 'Team Bride', names: ['Atty. Shaira Vea Emmanuelle Olarte', 'Atty. Zaidaronica Kho', 'Ms. Arvie Pepito', 'Mr. Reynald Lagang'] },
 ]
 
 const SECONDARY_SPONSORS = [
@@ -44,13 +44,10 @@ export default function WeddingEntourage() {
     <div className="entourage-content">
       <div className="entourage-block">
         <h3>Principal sponsors</h3>
-        <div className="principal-headings" aria-hidden="true">
-          <span>Male principal sponsors</span><span>Female principal sponsors</span>
-        </div>
         <ul className="principal-pairs" aria-label="Principal sponsor pairs">
           {PRINCIPAL_SPONSORS.map(([male, female]) => <li className="principal-pair" key={male}>
-            <div><span className="principal-role">Male principal sponsor</span><span>{male}</span></div>
-            <div><span className="principal-role">Female principal sponsor</span><span>{female}</span></div>
+            <div><span>{male}</span></div>
+            <div><span>{female}</span></div>
           </li>)}
         </ul>
       </div>
