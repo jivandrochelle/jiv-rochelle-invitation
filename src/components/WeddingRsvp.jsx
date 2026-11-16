@@ -5,9 +5,9 @@ export default function WeddingRsvp({ formUrl = GOOGLE_FORM_URL }) {
   const links = getGoogleFormLinks(formUrl)
 
   return <section className="rsvp-section section" id="rsvp" aria-labelledby="rsvp-title">
-    <p className="eyebrow">We hope you can join us</p>
+    <p className="eyebrow">We hope you can be there</p>
     <h2 id="rsvp-title">Celebrate <em>with us</em></h2>
-    <p className="section-intro">Your presence would mean the world to us.</p>
+    <p className="section-intro">Your presence would make the day even more special.</p>
     <div className="rsvp-card">
       <span className="rsvp-card-label">Jiv &amp; Rochelle · February 7, 2027</span>
       {links ? <>
