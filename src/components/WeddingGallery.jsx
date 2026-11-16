@@ -133,7 +133,7 @@ function RevealPhoto({ photo }) {
     const radius = Math.max(22, bounds.width / 9)
     const progress = sandRef.current?.brush(from, point, radius, state.grid) || 0
     state.last = point
-    if (progress >= 0.65) reveal()
+    if (progress >= 0.75) reveal()
   }
   const down = event => {
     if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return
